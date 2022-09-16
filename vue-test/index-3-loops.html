@@ -1,0 +1,128 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+  <head>
+    <!-- <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <title>Vue 3 Practice</title>
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div>Current user is {{user}}</div>
+      <div>{{ message }}</div>
+      <button @click="logData">Show/Hide Box</button>
+      <div v-if="isVisible" class="box"></div>
+      <login-form />
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      let app = Vue.createApp({
+        data: function () {
+          return {
+            message: "hello",
+            user: "VAP",
+            isVisible: false,
+          };
+        },
+        methods: {
+          logData() {
+            console.log("data logged");
+            this.isVisible = !this.isVisible;
+          },
+        },
+      });
+
+      app.component("login-form", {
+        // :label="label_variable" can be replaced with label="string"
+        // ***********************************
+        // on child component, v-model="email" acts as :modelValue="email", which can be taken as a variable in a child component
+        // ***********************************
+        // In Vue, binding is done using v-bind:property_name=variable_name OR sharthand is :property_name=variable_name
+        template: `
+            <form @submit.prevent="handleSubmit">
+                <h1>{{title}}</h1>
+                <p v-for="(str, i) in inputs" :key="i" >{{i+1}}{{' '}}{{str}}</p>
+                <custom-input
+                    v-for="(input, i) in inputs"
+                    key="i" 
+                    v-model="input.value" 
+                    :label="input.label"  
+                    :type="input.type"
+                />
+                <button>Login</button>
+                </form>
+                `,
+        components: ["custom-input"],
+        data() {
+          return {
+            title: "Login form",
+            inputs: [
+              {
+                label: "Email",
+                value: "",
+                type: "email",
+              },
+              {
+                label: "Password",
+                value: "",
+                type: "password",
+              },
+            ],
+            // email: "",
+            // password: "",
+            emailLabel: "Email",
+            passwordLabel: "Password",
+          };
+        },
+        methods: {
+          handleSubmit() {
+            console.log(this.inputs[0].value, this.inputs[1].value);
+          },
+        },
+      });
+
+      app.component("custom-input", {
+        template: `
+            <label>
+                {{label}}
+                <input :type="type" v-model="inputValue"/>
+                </label>
+        `,
+        // "modelValue" variable is taken from parent, using v-model="email" which works like modelValue="email"
+        props: ["label", "type", "modelValue"],
+        // in computed, we can take variables as keys ('inputValue' in this case) & write methods when it's value changes e.g. getter & setter
+        computed: {
+          inputValue: {
+            get() {
+              return this.modelValue;
+            },
+            set(value) {
+              // $emit emits an event for all other components to listen the change in the value of 'modalValue', updating with 'value'
+              //   this is listened by v-model in parent component because v-model ~ :modelValue
+              this.$emit("update:modelValue", value);
+              // this.modelValue = inputValue;
+            },
+          },
+        },
+        // data() {
+        //   return {
+        //     inputValue: "",
+        //   };
+        // },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

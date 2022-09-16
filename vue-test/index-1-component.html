@@ -1,0 +1,73 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+  <head>
+    <!-- <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <title>Vue 3 Practice</title>
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div>Current user is {{user}}</div>
+      <div>{{ message }}</div>
+      <button @click="logData">Show/Hide Box</button>
+      <div v-if="isVisible" class="box"></div>
+      <login-form />
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      let app = Vue.createApp({
+        data: function () {
+          return {
+            message: "hello",
+            user: "VAP",
+            isVisible: false,
+          };
+        },
+        methods: {
+          logData() {
+            console.log("data logged");
+            this.isVisible = !this.isVisible;
+          },
+        },
+      });
+
+      app.component("login-form", {
+        template: `
+            <form @submit.prevent="handleSubmit">
+                <h1>{{title}}</h1>
+                <input type="email" v-model="email"/>
+                <input type="password" v-model="password"/>
+                <button>Login</button>
+            </form>
+        `,
+        components: ["custom-input"],
+        data() {
+          return {
+            title: "Login form",
+            email: "",
+            password: "",
+          };
+        },
+        methods: {
+          handleSubmit() {
+            console.log(this.email, this.password);
+          },
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

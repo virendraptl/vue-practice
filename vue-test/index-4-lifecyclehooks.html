@@ -1,0 +1,62 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+  <head>
+    <!-- <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+    <title>Vue 3 Practice</title>
+    <style>
+      .box {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div>Current user is {{user}}</div>
+      <div>{{ message }}</div>
+      <button @click="logData">Show/Hide Box</button>
+      <test-box v-if="isVisible" />
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      let app = Vue.createApp({
+        data: function () {
+          return {
+            message: "hello",
+            user: "VAP",
+            isVisible: false,
+          };
+        },
+        methods: {
+          logData() {
+            this.isVisible = !this.isVisible;
+          },
+        },
+      });
+
+      app.component("test-box", {
+        template: `
+            <div class="box"></div>
+        `,
+        created() {
+          console.log("box is created");
+        },
+        mounted() {
+          console.log("box is mounted");
+        },
+        unmounted() {
+          console.log("box is destroyed");
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
