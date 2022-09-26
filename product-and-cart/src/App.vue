@@ -43,7 +43,8 @@ export default {
     return {
       showSidebar: false,
       inventory: food,
-      cart: {}
+      cart: {},
+      count: 0
     }
   },
   computed: {
@@ -58,12 +59,17 @@ export default {
       if (!this.cart[name]) this.cart[name] = 0
       this.cart[name] += quantity
       console.log(this.cart)
+      this.changeCount()
     },
     toggleSidebar () {
       this.showSidebar = !this.showSidebar
     },
     removeItem (name) {
       delete this.cart[name]
+    },
+    changeCount () {
+      this.count++
+      console.log('count:', this.count)
     }
   }
 }

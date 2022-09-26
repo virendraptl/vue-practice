@@ -11,7 +11,7 @@
 
       <div class="recommended">
         <ProductCard
-          v-for="(product, index) of inventory.slice(0, 3)"
+          v-for="(product, index) of inventory.slice(0,3)"
           :key="product.id"
           class="card"
           :index="index"
