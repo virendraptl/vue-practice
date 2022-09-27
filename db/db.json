@@ -1,0 +1,40 @@
+{
+  "user": [
+    {
+      "email": "user@test.in",
+      "name": "Tom",
+      "password": "1234qwer",
+      "id": 1
+    },
+    {
+      "name": "Virendra",
+      "email": "abc@abc.in",
+      "password": "1234qwer",
+      "id": 2
+    },
+    {
+      "name": "Prateek",
+      "email": "prateek@am.in",
+      "password": "1234qwer",
+      "id": 3
+    },
+    {
+      "name": "Hari",
+      "email": "hari@om.in",
+      "password": "1234qwer",
+      "id": 4
+    },
+    {
+      "name": "New User",
+      "email": "new@user.in",
+      "password": "1234qwer",
+      "id": 5
+    },
+    {
+      "name": "Redirect test",
+      "email": "redirect@test.in",
+      "password": "1234qwer",
+      "id": 6
+    }
+  ]
+}
