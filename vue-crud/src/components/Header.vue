@@ -1,15 +1,22 @@
 <template>
   <div class="nav">
-    <a router-link="/">Home</a>
-    <a href="">Add Post</a>
-    <a href="">Update Post</a>
-    <a href="">Logout</a>
+    <router-link to="/">Home</router-link>
+    <router-link to="/add">Add Post</router-link>
+    <router-link to="/update">Update Post</router-link>
+    <router-link @click="logout" to="#">Logout</router-link>
   </div>
 </template>
 
 <script>
 export default {
   name: "Header",
+  methods: {
+    logout() {
+      console.log("loggedout");
+      localStorage.clear();
+      this.$router.push({ name: "Login" });
+    },
+  },
 };
 </script>
 
@@ -28,8 +35,8 @@ export default {
   margin-right: 5px;
 }
 
-.nav a:hover{
-    background-color: #cef0e1;
-    color: #0b814e;
+.nav a:hover {
+  background-color: #cef0e1;
+  color: #0b814e;
 }
 </style>
